@@ -1,0 +1,142 @@
+.process {
+  padding: clamp(80px, 12vw, 140px) clamp(24px, 7vw, 100px);
+  background: var(--bg);
+}
+
+.inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: clamp(48px, 7vw, 96px);
+  align-items: flex-start;
+}
+
+.header {
+  position: sticky;
+  top: 100px;
+}
+
+.heading {
+  font-size: clamp(32px, 3.9vw, 54px);
+  font-weight: 300;
+  line-height: 1.14;
+  color: var(--text);
+  letter-spacing: -0.022em;
+  margin-bottom: 20px;
+}
+.heading em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.desc {
+  font-size: var(--text-prose);
+  color: var(--text-2);
+  line-height: var(--leading-relaxed);
+  letter-spacing: -0.009em;
+  font-weight: 400;
+}
+.steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.step {
+  display: flex;
+  gap: 28px;
+}
+
+.stepLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.stepNum {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--gold);
+  flex-shrink: 0;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.step:hover .stepNum {
+  background: var(--gold-dim);
+  border-color: rgba(201, 153, 58, 0.35);
+}
+
+.line {
+  width: 1px;
+  flex: 1;
+  min-height: 32px;
+  background: linear-gradient(to bottom, var(--border-2), transparent);
+  margin: 8px 0;
+}
+
+.stepContent {
+  padding-bottom: 40px;
+  flex: 1;
+}
+
+.step:last-child .stepContent {
+  padding-bottom: 0;
+}
+
+.stepMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding-top: 12px;
+}
+
+.stepTitle {
+  font-size: var(--text-body);
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.016em;
+  line-height: var(--leading-snug);
+}
+
+.stepDuration {
+  font-size: var(--text-body-xs);
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--gold-dim);
+  border: 1px solid rgba(201, 153, 58, 0.2);
+  border-radius: var(--r-pill);
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+
+.stepDesc {
+  font-size: var(--text-prose);
+  color: var(--text-2);
+  line-height: var(--leading-relaxed);
+  letter-spacing: -0.009em;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .inner {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    position: static;
+  }
+}
