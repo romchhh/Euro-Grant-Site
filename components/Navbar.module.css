@@ -11,12 +11,19 @@
   padding: 0 clamp(20px, 5vw, 64px);
   transition: background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
   border-bottom: 1px solid transparent;
+  /* над Hero (до скролу) — світлий текст на темному фоні */
+  --nav-fg: #ffffff;
+  --nav-fg-muted: rgba(255, 255, 255, 0.82);
+  --nav-hover-bg: rgba(255, 255, 255, 0.1);
 }
 
 .nav.scrolled {
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(20px);
   border-color: var(--border);
+  --nav-fg: var(--text);
+  --nav-fg-muted: var(--text-2);
+  --nav-hover-bg: var(--surface);
 }
 
 .brand {
@@ -28,12 +35,18 @@
   font-family: var(--font-serif);
   font-size: clamp(19px, 0.4vw + 17.2px, 22px);
   font-weight: 600;
-  color: var(--text);
+  color: var(--nav-fg);
   letter-spacing: -0.01em;
+  transition: color 0.35s ease;
 }
 
 .logo em {
   font-style: italic;
+  color: rgba(255, 255, 255, 0.95);
+  transition: color 0.35s ease;
+}
+
+.nav.scrolled .logo em {
   color: var(--gold-light);
 }
 
@@ -45,38 +58,51 @@
 }
 
 .links a {
-  color: var(--text-2);
+  color: var(--nav-fg-muted);
   font-size: var(--text-body);
   font-weight: 500;
   padding: 7px 14px;
   border-radius: var(--r-pill);
-  transition: color 0.2s, background 0.2s;
+  transition: color 0.35s ease, background 0.25s ease;
   letter-spacing: -0.01em;
 }
 
 .links a:hover {
-  color: var(--text);
-  background: var(--surface);
+  color: var(--nav-fg);
+  background: var(--nav-hover-bg);
 }
 
 .cta {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-  color: #080a0f;
+  background: transparent;
+  color: var(--nav-fg);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   font-size: var(--text-body-sm);
   font-weight: 600;
   padding: 10px 22px;
   border-radius: var(--r-pill);
   letter-spacing: 0.02em;
-  transition: opacity 0.2s, transform 0.2s;
+  transition: color 0.35s ease, background 0.35s ease, border-color 0.35s ease,
+    opacity 0.2s, transform 0.2s;
   white-space: nowrap;
 }
 
+.nav.scrolled .cta {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  color: #080a0f;
+  border-color: transparent;
+}
+
 .cta:hover {
-  opacity: 0.88;
+  opacity: 0.92;
   transform: translateY(-1px);
+}
+
+.nav:not(.scrolled) .cta:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.65);
 }
 
 .hamburger {
@@ -92,16 +118,16 @@
 }
 
 .hamburger:hover {
-  background: var(--surface);
+  background: var(--nav-hover-bg);
 }
 
 .hamburger span {
   display: block;
   width: 22px;
   height: 1.5px;
-  background: var(--text);
+  background: var(--nav-fg);
   border-radius: 2px;
-  transition: all 0.3s;
+  transition: background 0.35s ease, transform 0.3s, opacity 0.3s;
   transform-origin: center;
 }
 
