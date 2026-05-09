@@ -77,12 +77,12 @@
 }
 
 .heading {
-  font-size: clamp(62px, 9.5vw, 142px);
+  font-size: clamp(44px, 6.8vw, 96px);
   font-weight: 300;
   color: #e8eaf0;
-  line-height: 1.04;
-  letter-spacing: -0.032em;
-  margin-bottom: clamp(20px, 3vw, 28px);
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  margin-bottom: clamp(16px, 2.5vw, 24px);
   animation: fadeUp 1s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -93,12 +93,12 @@
 }
 
 .lead {
-  font-size: var(--text-lead);
+  font-size: clamp(14px, 1.25vw + 12px, 17px);
   color: rgba(196, 201, 216, 0.95);
-  line-height: var(--leading-relaxed);
-  letter-spacing: -0.008em;
-  margin-bottom: 48px;
-  max-width: 38ch;
+  line-height: 1.65;
+  letter-spacing: -0.006em;
+  margin-bottom: 40px;
+  max-width: 40ch;
   font-weight: 400;
   animation: fadeUp 1s 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -114,12 +114,12 @@
 .btnPrimary {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
   background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
   color: #080a0f;
-  font-size: var(--text-body);
+  font-size: var(--text-body-sm);
   font-weight: 600;
-  padding: 17px 34px;
+  padding: 13px 26px;
   border-radius: var(--r-pill);
   letter-spacing: 0.018em;
   transition: opacity 0.25s, transform 0.25s, box-shadow 0.25s;
@@ -137,9 +137,9 @@
   align-items: center;
   gap: 8px;
   color: #9aa0b8;
-  font-size: var(--text-body);
+  font-size: var(--text-body-sm);
   font-weight: 500;
-  padding: 16px 30px;
+  padding: 13px 24px;
   border-radius: var(--r-pill);
   border: 1px solid rgba(255, 255, 255, 0.12);
   transition: color 0.2s, border-color 0.2s, background 0.2s;
@@ -179,7 +179,7 @@
 .statNum {
   display: block;
   font-family: var(--font-serif);
-  font-size: 44px;
+  font-size: 34px;
   font-weight: 600;
   color: var(--gold-light);
   line-height: 1;
@@ -234,7 +234,7 @@
     flex: 1;
     min-width: 120px;
   }
-  .statNum { font-size: 32px; }
+  .statNum { font-size: 26px; }
   .scrollHint { display: none; }
   .orb1, .orb2 { display: none; }
 }
