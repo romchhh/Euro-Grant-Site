@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { STRIPE_CONSULTATION_URL } from '@/lib/siteLinks';
 import styles from './Navbar.module.css';
 
 const links = [
@@ -45,7 +46,12 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <a href="#contact" className={styles.cta} onClick={e => handleNav(e, '#contact')}>
+        <a
+          href={STRIPE_CONSULTATION_URL}
+          className={styles.cta}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Консультація — €10
         </a>
 
@@ -64,7 +70,13 @@ export default function Navbar() {
             {l.label}
           </a>
         ))}
-        <a href="#contact" className={styles.mobileCta} onClick={e => handleNav(e, '#contact')}>
+        <a
+          href={STRIPE_CONSULTATION_URL}
+          className={styles.mobileCta}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => setOpen(false)}
+        >
           Консультація — €10 →
         </a>
       </div>

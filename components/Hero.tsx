@@ -1,3 +1,4 @@
+import { STRIPE_CONSULTATION_URL } from '@/lib/siteLinks';
 import styles from './Hero.module.css';
 
 export default function Hero() {
@@ -27,7 +28,12 @@ export default function Hero() {
         </p>
 
         <div className={styles.buttons}>
-          <a href="#contact" className={styles.btnPrimary}>
+          <a
+            href={STRIPE_CONSULTATION_URL}
+            className={styles.btnPrimary}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <rect x="3" y="5" width="18" height="14" rx="2" />
               <path d="M3 8l9 6 9-6" />
