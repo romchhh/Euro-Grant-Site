@@ -6,6 +6,8 @@ const CONTACT_EMAIL = 'euhelpprivate@proton.me';
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -16,9 +18,35 @@ export default function Contact() {
     message: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
+    setError(null);
+    setLoading(true);
+    try {
+      const res = await fetch('/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          business: form.business,
+          interest: form.interest,
+          question: form.question,
+          message: form.message,
+        }),
+      });
+      const data = (await res.json().catch(() => ({}))) as { error?: string };
+      if (!res.ok) {
+        setError(data.error ?? 'Не вдалося надіслати. Спробуйте ще раз.');
+        return;
+      }
+      setSent(true);
+    } catch {
+      setError('Помилка мережі. Перевірте з’єднання та спробуйте знову.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -94,6 +122,8 @@ export default function Contact() {
                   €10 · Безпечна оплата через Stripe · {CONTACT_EMAIL}
                 </p>
 
+                {error ? <p className={styles.formError}>{error}</p> : null}
+
                 <div className={styles.row}>
                   <div className={styles.field}>
                     <label className={styles.fieldLabel}>Ваше ім'я *</label>
@@ -104,6 +134,7 @@ export default function Contact() {
                       value={form.name}
                       onChange={e => setForm({ ...form, name: e.target.value })}
                       required
+                      disabled={loading}
                     />
                   </div>
                   <div className={styles.field}>
@@ -115,6 +146,7 @@ export default function Contact() {
                       value={form.email}
                       onChange={e => setForm({ ...form, email: e.target.value })}
                       required
+                      disabled={loading}
                     />
                   </div>
                 </div>
@@ -128,6 +160,7 @@ export default function Contact() {
                     value={form.phone}
                     onChange={e => setForm({ ...form, phone: e.target.value })}
                     required
+                    disabled={loading}
                   />
                 </div>
 
@@ -139,21 +172,24 @@ export default function Contact() {
                     placeholder="ТОВ «Компанія»"
                     value={form.business}
                     onChange={e => setForm({ ...form, business: e.target.value })}
+                    disabled={loading}
                   />
                 </div>
 
                 <div className={styles.field}>
-                  <label className={styles.fieldLabel}>Що вас цікавить?</label>
+                  <label className={styles.fieldLabel}>Що вас цікавить? *</label>
                   <select
                     className={`${styles.input} ${styles.select}`}
                     value={form.interest}
                     onChange={e => setForm({ ...form, interest: e.target.value })}
+                    required
+                    disabled={loading}
                   >
                     <option value="" disabled>Оберіть варіант</option>
-                    <option>Гранти ЄС для бізнесу</option>
-                    <option>Приватні позики та інвестиції</option>
-                    <option>Гранти для НКО та благодійних організацій</option>
-                    <option>Загальна консультація</option>
+                    <option value="grants-eu">Гранти ЄС для бізнесу</option>
+                    <option value="private-loans">Приватні позики та інвестиції</option>
+                    <option value="grants-ngo">Гранти для НКО та благодійних організацій</option>
+                    <option value="general">Загальна консультація</option>
                   </select>
                 </div>
 
@@ -165,6 +201,7 @@ export default function Contact() {
                     rows={2}
                     value={form.question}
                     onChange={e => setForm({ ...form, question: e.target.value })}
+                    disabled={loading}
                   />
                 </div>
 
@@ -176,15 +213,18 @@ export default function Contact() {
                     rows={3}
                     value={form.message}
                     onChange={e => setForm({ ...form, message: e.target.value })}
+                    disabled={loading}
                   />
                 </div>
 
-                <button type="submit" className={styles.submit}>
-                  Надіслати заявку
-                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <line x1="22" y1="2" x2="11" y2="13" />
-                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                  </svg>
+                <button type="submit" className={styles.submit} disabled={loading}>
+                  {loading ? 'Надсилання…' : 'Надіслати заявку'}
+                  {!loading ? (
+                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <line x1="22" y1="2" x2="11" y2="13" />
+                      <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                    </svg>
+                  ) : null}
                 </button>
               </form>
             )}
