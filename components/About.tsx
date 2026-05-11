@@ -55,7 +55,7 @@ export default function About() {
               alt="Команда EuroGrant Partners"
             />
             <div className={styles.imageBadge}>
-              <span className={styles.ibNum}>94%</span>
+              <span className={styles.ibNum}>85%</span>
               <span className={styles.ibLabel}>Успішних заявок</span>
             </div>
           </div>
@@ -68,8 +68,8 @@ export default function About() {
             <em>у світі грантів ЄС</em>
           </h2>
           <p className={styles.desc}>
-            Ми не просто консультанти — ми ваші партнери, які кровно зацікавлені у вашому успіху.
-            Наш показник успішності 94% говорить сам за себе.
+            Ми не просто консультанти — ми ваші партнери, які безпосередньо зацікавлені у вашому успіху.
+            Наш показник успішності 85% говорить сам за себе.
           </p>
 
           <ul className={styles.featureList}>

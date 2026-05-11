@@ -26,7 +26,7 @@ export default function Footer() {
               <li><a href="#services">Гранти ЄС</a></li>
               <li><a href="#services">Приватні інвестиції</a></li>
               <li><a href="#services">Для НКО</a></li>
-              <li><a href="#contact">Консультація €10</a></li>
+              <li><a href="#contact">Записатись на консультацію</a></li>
             </ul>
           </div>
           <div className={styles.col}>
@@ -41,6 +41,9 @@ export default function Footer() {
             <p className={styles.colTitle}>Контакти</p>
             <ul className={styles.colList}>
               <li><a href="#contact">Записатись</a></li>
+              <li>
+                <a href="mailto:euhelpprivate@proton.me">euhelpprivate@proton.me</a>
+              </li>
               <li>
                 <a href="https://t.me/+jZfmKxGWs3U2NWRk" target="_blank" rel="noopener noreferrer">
                   Telegram-канал

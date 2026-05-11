@@ -2,10 +2,18 @@
 import { useState } from 'react';
 import styles from './Contact.module.css';
 
+const CONTACT_EMAIL = 'euhelpprivate@proton.me';
+
 export default function Contact() {
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({
-    name: '', email: '', business: '', interest: '', message: '',
+    name: '',
+    email: '',
+    phone: '',
+    business: '',
+    interest: '',
+    question: '',
+    message: '',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -24,12 +32,13 @@ export default function Contact() {
           </h2>
           <p className={styles.desc}>
             Запишіться на консультацію за €10 і дізнайтесь, яке фінансування
-            доступне саме для вашого бізнесу.
+            доступне саме для вашого бізнесу. Заявки та запитання також приймаємо
+            на пошту.
           </p>
 
           <div className={styles.highlights}>
             {[
-              { icon: '✓', text: '94% успішних заявок' },
+              { icon: '✓', text: '85% успішних заявок' },
               { icon: '✓', text: 'Відповідь протягом 24 годин' },
               { icon: '✓', text: 'Безпечна оплата через Stripe' },
               { icon: '✓', text: 'Конфіденційність гарантована' },
@@ -42,6 +51,13 @@ export default function Contact() {
           </div>
 
           <a
+            href={`mailto:${CONTACT_EMAIL}?subject=Запит%20EuroGrant%20Partners`}
+            className={styles.emailLink}
+          >
+            {CONTACT_EMAIL}
+          </a>
+
+          <a
             href="https://t.me/+jZfmKxGWs3U2NWRk"
             target="_blank"
             rel="noopener noreferrer"
@@ -52,6 +68,9 @@ export default function Contact() {
             </svg>
             Приєднатись до Telegram-каналу
           </a>
+          <p className={styles.tgNote}>
+            Канал платний: підписка €10/місяць або €100/рік.
+          </p>
         </div>
 
         <div className={styles.right}>
@@ -65,13 +84,15 @@ export default function Contact() {
                 </div>
                 <h3 className={styles.successTitle}>Заявку надіслано!</h3>
                 <p className={styles.successDesc}>
-                  Ми зв'яжемося з вами протягом 24 годин.
+                  Ми контактуємо з вами протягом 24 годин.
                 </p>
               </div>
             ) : (
               <form className={styles.form} onSubmit={handleSubmit}>
                 <h3 className={styles.formTitle}>Записатись на консультацію</h3>
-                <p className={styles.formSub}>€10 · Безпечна оплата через Stripe</p>
+                <p className={styles.formSub}>
+                  €10 · Безпечна оплата через Stripe · {CONTACT_EMAIL}
+                </p>
 
                 <div className={styles.row}>
                   <div className={styles.field}>
@@ -96,6 +117,18 @@ export default function Contact() {
                       required
                     />
                   </div>
+                </div>
+
+                <div className={styles.field}>
+                  <label className={styles.fieldLabel}>Контактний телефон *</label>
+                  <input
+                    type="tel"
+                    className={styles.input}
+                    placeholder="+380 XX XXX XX XX"
+                    value={form.phone}
+                    onChange={e => setForm({ ...form, phone: e.target.value })}
+                    required
+                  />
                 </div>
 
                 <div className={styles.field}>
@@ -125,6 +158,17 @@ export default function Contact() {
                 </div>
 
                 <div className={styles.field}>
+                  <label className={styles.fieldLabel}>Питання — відповідь (за бажанням)</label>
+                  <textarea
+                    className={`${styles.input} ${styles.textarea}`}
+                    placeholder="Коротко сформулюйте питання; відповімо під час консультації або листом."
+                    rows={2}
+                    value={form.question}
+                    onChange={e => setForm({ ...form, question: e.target.value })}
+                  />
+                </div>
+
+                <div className={styles.field}>
                   <label className={styles.fieldLabel}>Короткий опис проєкту</label>
                   <textarea
                     className={`${styles.input} ${styles.textarea}`}
@@ -136,7 +180,7 @@ export default function Contact() {
                 </div>
 
                 <button type="submit" className={styles.submit}>
-                  Надіслати заявку — €10
+                  Надіслати заявку
                   <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <line x1="22" y1="2" x2="11" y2="13" />
                     <polygon points="22 2 15 22 11 13 2 9 22 2" />

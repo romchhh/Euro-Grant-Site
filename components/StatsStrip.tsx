@@ -2,7 +2,7 @@ import styles from './StatsStrip.module.css';
 
 const stats = [
   { num: '€50M+', label: 'Залучено для клієнтів' },
-  { num: '94%', label: 'Успішних заявок' },
+  { num: '85%', label: 'Успішних заявок' },
   { num: '8+', label: 'Років на ринку' },
   { num: '200+', label: 'Задоволених клієнтів' },
   { num: '40+', label: 'Грантових програм' },
