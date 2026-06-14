@@ -38,3 +38,12 @@ export function containsDangerousPatterns(s: string): boolean {
   }
   return false;
 }
+
+/** Телефон: лише + на початку та цифри, мінімум 9 цифр. */
+export function isValidPhone(phone: string): boolean {
+  const normalized = phone.trim().replace(/\s/g, "");
+  if (!normalized) return false;
+  if (!/^\+?\d+$/.test(normalized)) return false;
+  const digits = normalized.replace(/\D/g, "");
+  return digits.length >= 9 && digits.length <= 15;
+}

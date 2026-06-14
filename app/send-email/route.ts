@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   checkRateLimit,
   containsDangerousPatterns,
+  isValidPhone,
   validateJsonInput,
 } from "@/lib/security";
 
@@ -58,6 +59,12 @@ export async function POST(req: NextRequest) {
     }
 
     const body = JSON.parse(bodyText) as Record<string, unknown>;
+
+    // Honeypot: приховане поле для ботів — тихо відхиляємо
+    if (str(body.website, 500)) {
+      return NextResponse.json({ success: true });
+    }
+
     const name = str(body.name, 200);
     const email = str(body.email, 254);
     const phone = str(body.phone, 50);
@@ -72,8 +79,11 @@ export async function POST(req: NextRequest) {
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: "Некоректний email" }, { status: 400 });
     }
-    if (!phone) {
-      return NextResponse.json({ error: "Вкажіть телефон" }, { status: 400 });
+    if (!isValidPhone(phone)) {
+      return NextResponse.json(
+        { error: "Некоректний телефон. Вкажіть номер лише з цифр (мін. 9), можна з + на початку." },
+        { status: 400 },
+      );
     }
     if (!ALLOWED_INTEREST.has(interest)) {
       return NextResponse.json({ error: "Оберіть тему зі списку" }, { status: 400 });

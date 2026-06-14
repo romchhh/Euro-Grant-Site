@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { isValidPhone } from '@/lib/security';
 import styles from './Contact.module.css';
 
 const CONTACT_EMAIL = 'euhelpprivate@proton.me';
@@ -16,11 +17,20 @@ export default function Contact() {
     interest: '',
     question: '',
     message: '',
+    website: '',
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+
+    if (form.website) return;
+
+    if (!isValidPhone(form.phone)) {
+      setError('Некоректний телефон. Вкажіть номер лише з цифр (мін. 9), можна з + на початку.');
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await fetch('/send-email', {
@@ -34,6 +44,7 @@ export default function Contact() {
           interest: form.interest,
           question: form.question,
           message: form.message,
+          website: form.website,
         }),
       });
       const data = (await res.json().catch(() => ({}))) as { error?: string };
@@ -123,6 +134,19 @@ export default function Contact() {
                 </p>
 
                 {error ? <p className={styles.formError}>{error}</p> : null}
+
+                <div className={styles.honeypot} aria-hidden="true">
+                  <label htmlFor="contact-website">Website</label>
+                  <input
+                    id="contact-website"
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={form.website}
+                    onChange={e => setForm({ ...form, website: e.target.value })}
+                  />
+                </div>
 
                 <div className={styles.row}>
                   <div className={styles.field}>
